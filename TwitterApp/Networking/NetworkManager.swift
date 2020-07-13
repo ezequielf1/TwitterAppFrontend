@@ -2,104 +2,59 @@
 //  NetworkManager.swift
 //  TwitterApp
 //
-//  Created by Brian Ezequiel Fritz on 06/07/2020.
+//  Created by Brian Ezequiel Fritz on 08/07/2020.
 //  Copyright © 2020 Brian Ezequiel Fritz. All rights reserved.
 //
 
 import Foundation
-import Alamofire
 
 final class NetworkManager {
+    typealias APIClientCompletion<E> = (APIResult<E>) -> Void
     
-    // MARK: - Private Properties
-    private let sessionManager: SessionManager = {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 5
-        configuration.timeoutIntervalForResource = 5
-        configuration.requestCachePolicy = .reloadIgnoringCacheData
-        let sessionManager = Alamofire.SessionManager(configuration: configuration)
-        return sessionManager
-    }()
+    var session = URLSession.shared
+    private let baseURL = URL(string: "http://localhost:8080")
+    private let decoder = JSONDecoder()
     
-    private static var sharedNetworkManager: NetworkManager = {
-        return NetworkManager()
-    }()
     
-    class func shared() -> NetworkManager {
-        return sharedNetworkManager
-    }
+    func doRequest<T: Codable>(_ request: APIRequest, _ completion: @escaping APIClientCompletion<T>) {
+        let urlComponents = createURLComponents(request: request)
     
-    // MARK: - Initializer
-    private init() {}
-}
-
-// MARK: - Public Methods
-extension NetworkManager {
-    func doRequest<T: Codable>(type: EndpointType,
-                               params: Parameters? = nil,
-                               completionHandler: @escaping (T?, _ error: AlertMessage?) -> Void) {
-        guard let url = type.url else {
-            completionHandler(nil, .unknownError)
+        guard let url = urlComponents.url?.appendingPathComponent(request.path) else {
+            completion(.failure(.invalidURL))
             return
         }
-        sessionManager
-            .request(url, method: type.httpMethod,
-                               encoding: type.encoding,
-                               headers: type.headers)
-            .validate()
-            .responseJSON { data in
-            switch data.result {
-            case .success:
-                if let jsonData = data.data {
-                    self.parseSuccessRequest(data: jsonData, completionHandler: completionHandler)
-                }
-            case .failure(let error):
-                completionHandler(nil, self.getError(error, data: data))
+        let urlRequest = createUrlRequestWithAllComponents(url: url, request: request)
+        
+        session.dataTask(with: urlRequest) { (data, response, error) in
+            guard let httpResponse = response as? HTTPURLResponse else {
+                completion(.failure(.requestFailed))
+                return
             }
-        }
-    }
-}
-
-
-// MARK: - Private Methods
-private extension NetworkManager {
-    func parseSuccessRequest<T: Codable>(data: Data,
-                                         completionHandler: @escaping (T?, _ error: AlertMessage?) -> Void) {
-        let decoder = JSONDecoder()
-        guard let result = try? decoder.decode(T.self, from: data) else {
-            completionHandler(nil, .parseError)
-            return
-        }
-        completionHandler(result, nil)
+            if let decodedItem = try? self.decoder.decode(T.self, from: data ?? Data()) {
+                completion(.success(decodedItem))
+            } else {
+                completion(.failure(.decodingFailure))
+            }
+        }.resume()
     }
     
-    func getError(_ error: Error, data: DataResponse<Any>) -> AlertMessage {
-        return isInternetConnectionError(error) ? .noInternetConnection : getError(from: data)
+    private func createURLComponents(request: APIRequest) -> URLComponents {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = baseURL?.scheme
+        urlComponents.host = baseURL?.host
+        urlComponents.port = baseURL?.port
+        urlComponents.path = baseURL?.path ?? ""
+        urlComponents.queryItems = request.queryItems
+        return urlComponents
     }
     
-    func isInternetConnectionError(_ error: Error) -> Bool {
-        guard let error = error as? URLError else {
-            return false
-        }
-        return error.code == .notConnectedToInternet ||
-            error.code == .timedOut ||
-            error.code == .networkConnectionLost
-    }
-    
-    func getError(from data: DataResponse<Any>) -> AlertMessage {
-        switch data.response?.statusCode ?? 0 {
-        case 500...599:
-            return .internalServerError
-        default:
-            return parseApiError(data: data.data)
-        }
-    }
-    
-    func parseApiError(data: Data?) -> AlertMessage {
-        let decoder = JSONDecoder()
-        if let jsonData = data, let error = try? decoder.decode(APIError.self, from: jsonData) {
-            return .serverError(error.message, "")
-        }
-        return .parseError
+    private func createUrlRequestWithAllComponents(url: URL, request: APIRequest) -> URLRequest {
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = request.method.rawValue
+        urlRequest.httpBody = request.body
+        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        request.headers?.forEach { urlRequest.addValue($0.value, forHTTPHeaderField: $0.field) }
+        return urlRequest
     }
 }
