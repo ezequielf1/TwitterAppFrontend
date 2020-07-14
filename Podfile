@@ -7,6 +7,8 @@ target 'TwitterApp' do
 
   # Pods for TwitterApp
   pod 'Alamofire', '4.9.1'
+  pod 'RxSwift'
+  pod 'RxCocoa'
 
   target 'TwitterAppTests' do
     inherit! :search_paths

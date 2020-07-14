@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignInViewController" customModule="TwitterApp" customModuleProvider="target">
+            <connections>
+                <outlet property="signInButton" destination="u80-A9-SmK" id="bBe-cz-b9o"/>
+                <outlet property="usernameTextField" destination="BYr-vy-T0W" id="NuF-YM-S7e"/>
+                <outlet property="view" destination="iN0-l3-epB" id="6i9-CR-8lb"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="doc.text.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6nJ-10-rwe">
+                    <rect key="frame" x="16" y="16.333333333333343" width="382" height="274.66666666666669"/>
+                    <color key="tintColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="NHH-mi-EDx">
+                    <rect key="frame" x="127.66666666666669" y="307" width="159" height="122"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haL-Lg-ZRf">
+                            <rect key="frame" x="0.0" y="0.0" width="159" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BYr-vy-T0W">
+                            <rect key="frame" x="0.0" y="46" width="159" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u80-A9-SmK">
+                            <rect key="frame" x="0.0" y="92" width="159" height="30"/>
+                            <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="fib-8H-1ME"/>
+                            </constraints>
+                            <state key="normal" title="Sign In">
+                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </state>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="6nJ-10-rwe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="3Zp-Ba-0Lr"/>
+                <constraint firstItem="NHH-mi-EDx" firstAttribute="top" secondItem="6nJ-10-rwe" secondAttribute="bottom" constant="16" id="avV-sQ-XDh"/>
+                <constraint firstItem="NHH-mi-EDx" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="fe8-4J-p4x"/>
+                <constraint firstItem="NHH-mi-EDx" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="niq-zL-cqU"/>
+                <constraint firstItem="6nJ-10-rwe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="ucs-pV-22o"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6nJ-10-rwe" secondAttribute="trailing" constant="16" id="yNO-J9-CNS"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="131.8840579710145" y="111.68478260869566"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="doc.text.fill" catalog="system" width="115" height="128"/>
+    </resources>
+</document>
