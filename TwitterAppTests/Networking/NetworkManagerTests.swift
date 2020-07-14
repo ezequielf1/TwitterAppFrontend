@@ -13,8 +13,7 @@ class NetworkManagerTests: XCTestCase {
     var networkManager: NetworkManager?
     var expectation: XCTestExpectation!
     let apiURL = URL(string: "https://localhost:8080/user/create")!
-    let apiRequest = APIRequest(method: .post, path: "/user/create")
-    let invalidApiRequest = APIRequest(method: .post, path: "///invalidPath////")
+    let apiRequest = APIRequest(endpointItem: .createUser)
     
     
     override func setUp() {
@@ -29,12 +28,7 @@ class NetworkManagerTests: XCTestCase {
     
     func testCreateUserSuccessfulResponse() {
         let mockUser = createMockUserResponse()
-        let data = createJson(with: mockUser)
-        
-        MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: self.apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-            return (response, data)
-        }
+        setMockURLProtocolRequestHandler(with: createJson(with: mockUser))
         
         networkManager?.doRequest(apiRequest, { (result: APIResult<User>) in
             switch result {
@@ -50,11 +44,7 @@ class NetworkManagerTests: XCTestCase {
     }
     
     func testCreateUserParsingFailure() {
-        let data = Data()
-        MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: self.apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-            return (response, data)
-        }
+        setMockURLProtocolRequestHandler(with: Data())
         
         networkManager?.doRequest(apiRequest, { (result: APIResult<User>) in
             switch result {
@@ -67,6 +57,13 @@ class NetworkManagerTests: XCTestCase {
         })
         
         wait(for: [expectation], timeout: 2)
+    }
+    
+    private func setMockURLProtocolRequestHandler(with data: Data?) {
+        MockURLProtocol.requestHandler = { request in
+            let response = HTTPURLResponse(url: self.apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            return (response, data)
+        }
     }
     
     private func createMockUserResponse() -> User {

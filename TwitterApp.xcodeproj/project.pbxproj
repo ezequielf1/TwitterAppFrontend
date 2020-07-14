@@ -15,10 +15,27 @@
 		2A0F867324B6485600B56F71 /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F867224B6485600B56F71 /* HTTPHeader.swift */; };
 		2A0F867524B649AB00B56F71 /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F867424B649AB00B56F71 /* APIResult.swift */; };
 		2A0F867724B649ED00B56F71 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F867624B649ED00B56F71 /* APIResponse.swift */; };
+		2A283F9024BDDFC70019D080 /* Storyboardead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283F8F24BDDFC70019D080 /* Storyboardead.swift */; };
+		2A283F9524BDE7860019D080 /* SignUpViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283F9424BDE7860019D080 /* SignUpViewModelTests.swift */; };
+		2A283F9824BDE8020019D080 /* AuthenticationServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283F9724BDE8020019D080 /* AuthenticationServiceMock.swift */; };
+		2A283F9A24BDF1220019D080 /* APIErrorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283F9924BDF1220019D080 /* APIErrorMock.swift */; };
+		2A283F9C24BDF6EE0019D080 /* SignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A283F9B24BDF6EE0019D080 /* SignInViewController.xib */; };
+		2A283F9E24BDF7A70019D080 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283F9D24BDF7A70019D080 /* SignInViewController.swift */; };
+		2A283FA024BDF80A0019D080 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283F9F24BDF80A0019D080 /* SignInViewModel.swift */; };
+		2A283FA224BDF97D0019D080 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283FA124BDF97D0019D080 /* UIViewController+Extensions.swift */; };
+		2A283FA524BDFACF0019D080 /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283FA424BDFACF0019D080 /* SignInViewModelTests.swift */; };
 		2A4D201824BC858E007EF018 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D201724BC858E007EF018 /* MockURLProtocol.swift */; };
+		2A4D201E24BCA7F9007EF018 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D201D24BCA7F9007EF018 /* SignUpViewController.swift */; };
+		2A4D202024BCA9B6007EF018 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D201F24BCA9B6007EF018 /* SignUpViewModel.swift */; };
+		2A4D202224BCAAE4007EF018 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D202124BCAAE4007EF018 /* AuthenticationService.swift */; };
+		2A4D202524BCB1E7007EF018 /* BehaviorSubjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D202424BCB1E7007EF018 /* BehaviorSubjectExtensions.swift */; };
+		2A4D202824BCB2CD007EF018 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D202724BCB2CD007EF018 /* Authentication.swift */; };
+		2A4D202A24BCB4B0007EF018 /* EndpointItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D202924BCB4B0007EF018 /* EndpointItem.swift */; };
+		2A4D202C24BCB7CB007EF018 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D202B24BCB7CB007EF018 /* User.swift */; };
+		2A4D203024BCB93F007EF018 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D202F24BCB93F007EF018 /* Coordinator.swift */; };
+		2A4D203224BCB962007EF018 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4D203124BCB962007EF018 /* AppCoordinator.swift */; };
 		2A4E977724B36DE000D98C93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E977624B36DE000D98C93 /* AppDelegate.swift */; };
 		2A4E977924B36DE000D98C93 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E977824B36DE000D98C93 /* SceneDelegate.swift */; };
-		2A4E977B24B36DE000D98C93 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E977A24B36DE000D98C93 /* ViewController.swift */; };
 		2A4E977E24B36DE000D98C93 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A4E977C24B36DE000D98C93 /* Main.storyboard */; };
 		2A4E978024B36DE200D98C93 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A4E977F24B36DE200D98C93 /* Assets.xcassets */; };
 		2A4E978324B36DE200D98C93 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A4E978124B36DE200D98C93 /* LaunchScreen.storyboard */; };
@@ -49,11 +66,28 @@
 		2A0F867224B6485600B56F71 /* HTTPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
 		2A0F867424B649AB00B56F71 /* APIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
 		2A0F867624B649ED00B56F71 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		2A283F8F24BDDFC70019D080 /* Storyboardead.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboardead.swift; sourceTree = "<group>"; };
+		2A283F9424BDE7860019D080 /* SignUpViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModelTests.swift; sourceTree = "<group>"; };
+		2A283F9724BDE8020019D080 /* AuthenticationServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationServiceMock.swift; sourceTree = "<group>"; };
+		2A283F9924BDF1220019D080 /* APIErrorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorMock.swift; sourceTree = "<group>"; };
+		2A283F9B24BDF6EE0019D080 /* SignInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignInViewController.xib; sourceTree = "<group>"; };
+		2A283F9D24BDF7A70019D080 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		2A283F9F24BDF80A0019D080 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		2A283FA124BDF97D0019D080 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		2A283FA424BDFACF0019D080 /* SignInViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelTests.swift; sourceTree = "<group>"; };
 		2A4D201724BC858E007EF018 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
+		2A4D201D24BCA7F9007EF018 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		2A4D201F24BCA9B6007EF018 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		2A4D202124BCAAE4007EF018 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		2A4D202424BCB1E7007EF018 /* BehaviorSubjectExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BehaviorSubjectExtensions.swift; sourceTree = "<group>"; };
+		2A4D202724BCB2CD007EF018 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		2A4D202924BCB4B0007EF018 /* EndpointItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointItem.swift; sourceTree = "<group>"; };
+		2A4D202B24BCB7CB007EF018 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2A4D202F24BCB93F007EF018 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		2A4D203124BCB962007EF018 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		2A4E977324B36DE000D98C93 /* TwitterApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A4E977624B36DE000D98C93 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2A4E977824B36DE000D98C93 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2A4E977A24B36DE000D98C93 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2A4E977D24B36DE000D98C93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A4E977F24B36DE200D98C93 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A4E978224B36DE200D98C93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -112,8 +146,70 @@
 				2A0F867224B6485600B56F71 /* HTTPHeader.swift */,
 				2A0F867424B649AB00B56F71 /* APIResult.swift */,
 				2A0F867624B649ED00B56F71 /* APIResponse.swift */,
+				2A4D202924BCB4B0007EF018 /* EndpointItem.swift */,
 			);
 			path = SupportingObjects;
+			sourceTree = "<group>";
+		};
+		2A283F9124BDE7670019D080 /* SignUpTests */ = {
+			isa = PBXGroup;
+			children = (
+				2A283F9624BDE7F60019D080 /* Mocks */,
+				2A283F9424BDE7860019D080 /* SignUpViewModelTests.swift */,
+			);
+			path = SignUpTests;
+			sourceTree = "<group>";
+		};
+		2A283F9624BDE7F60019D080 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2A283F9724BDE8020019D080 /* AuthenticationServiceMock.swift */,
+				2A283F9924BDF1220019D080 /* APIErrorMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		2A283FA324BDFABF0019D080 /* SignInTests */ = {
+			isa = PBXGroup;
+			children = (
+				2A283FA424BDFACF0019D080 /* SignInViewModelTests.swift */,
+			);
+			path = SignInTests;
+			sourceTree = "<group>";
+		};
+		2A4D202324BCB1DB007EF018 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2A4D202424BCB1E7007EF018 /* BehaviorSubjectExtensions.swift */,
+				2A283FA124BDF97D0019D080 /* UIViewController+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2A4D202624BCB2C3007EF018 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2A4D202724BCB2CD007EF018 /* Authentication.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		2A4D202D24BCB92F007EF018 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				2A4D202E24BCB937007EF018 /* Protocols */,
+				2A4D203124BCB962007EF018 /* AppCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		2A4D202E24BCB937007EF018 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2A4D202F24BCB93F007EF018 /* Coordinator.swift */,
+				2A283F8F24BDDFC70019D080 /* Storyboardead.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		2A4E976A24B36DE000D98C93 = {
@@ -139,6 +235,8 @@
 		2A4E977524B36DE000D98C93 /* TwitterApp */ = {
 			isa = PBXGroup;
 			children = (
+				2A4D202D24BCB92F007EF018 /* Coordinators */,
+				2A4D202324BCB1DB007EF018 /* Extensions */,
 				2A4E97AC24B3765A00D98C93 /* Controllers */,
 				2A4E97AB24B3765400D98C93 /* Models */,
 				2A4E97AA24B3764D00D98C93 /* Services */,
@@ -147,7 +245,6 @@
 				2A4E979824B36E3A00D98C93 /* Networking */,
 				2A4E977624B36DE000D98C93 /* AppDelegate.swift */,
 				2A4E977824B36DE000D98C93 /* SceneDelegate.swift */,
-				2A4E977A24B36DE000D98C93 /* ViewController.swift */,
 				2A4E977C24B36DE000D98C93 /* Main.storyboard */,
 				2A4E977F24B36DE200D98C93 /* Assets.xcassets */,
 				2A4E978124B36DE200D98C93 /* LaunchScreen.storyboard */,
@@ -159,6 +256,8 @@
 		2A4E978C24B36DE200D98C93 /* TwitterAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				2A283FA324BDFABF0019D080 /* SignInTests */,
+				2A283F9124BDE7670019D080 /* SignUpTests */,
 				2A0F865D24B634D600B56F71 /* Networking */,
 				2A4E978D24B36DE200D98C93 /* TwitterAppTests.swift */,
 				2A4E978F24B36DE200D98C93 /* Info.plist */,
@@ -178,6 +277,7 @@
 		2A4E97A824B3763F00D98C93 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2A283F9B24BDF6EE0019D080 /* SignInViewController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -185,6 +285,8 @@
 		2A4E97A924B3764700D98C93 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				2A4D201F24BCA9B6007EF018 /* SignUpViewModel.swift */,
+				2A283F9F24BDF80A0019D080 /* SignInViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -192,6 +294,8 @@
 		2A4E97AA24B3764D00D98C93 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2A4D202624BCB2C3007EF018 /* Protocols */,
+				2A4D202124BCAAE4007EF018 /* AuthenticationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -199,6 +303,7 @@
 		2A4E97AB24B3765400D98C93 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2A4D202B24BCB7CB007EF018 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -206,6 +311,8 @@
 		2A4E97AC24B3765A00D98C93 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2A4D201D24BCA7F9007EF018 /* SignUpViewController.swift */,
+				2A283F9D24BDF7A70019D080 /* SignInViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -314,6 +421,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A283F9C24BDF6EE0019D080 /* SignInViewController.xib in Resources */,
 				2A4E978324B36DE200D98C93 /* LaunchScreen.storyboard in Resources */,
 				2A4E978024B36DE200D98C93 /* Assets.xcassets in Resources */,
 				2A4E977E24B36DE000D98C93 /* Main.storyboard in Resources */,
@@ -398,15 +506,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A4D201E24BCA7F9007EF018 /* SignUpViewController.swift in Sources */,
 				2A0F867324B6485600B56F71 /* HTTPHeader.swift in Sources */,
 				2A0F867524B649AB00B56F71 /* APIResult.swift in Sources */,
-				2A4E977B24B36DE000D98C93 /* ViewController.swift in Sources */,
+				2A4D202524BCB1E7007EF018 /* BehaviorSubjectExtensions.swift in Sources */,
 				2A0F866F24B647F300B56F71 /* APIRequest.swift in Sources */,
 				2A0F867724B649ED00B56F71 /* APIResponse.swift in Sources */,
+				2A283FA224BDF97D0019D080 /* UIViewController+Extensions.swift in Sources */,
+				2A4D203224BCB962007EF018 /* AppCoordinator.swift in Sources */,
+				2A4D202C24BCB7CB007EF018 /* User.swift in Sources */,
+				2A283FA024BDF80A0019D080 /* SignInViewModel.swift in Sources */,
+				2A283F9E24BDF7A70019D080 /* SignInViewController.swift in Sources */,
 				2A0F866D24B647C700B56F71 /* HTTPMethod.swift in Sources */,
+				2A4D202824BCB2CD007EF018 /* Authentication.swift in Sources */,
+				2A283F9024BDDFC70019D080 /* Storyboardead.swift in Sources */,
 				2A0F866A24B647A000B56F71 /* NetworkManager.swift in Sources */,
+				2A4D203024BCB93F007EF018 /* Coordinator.swift in Sources */,
 				2A0F867124B6483900B56F71 /* APIError.swift in Sources */,
 				2A4E977724B36DE000D98C93 /* AppDelegate.swift in Sources */,
+				2A4D202024BCA9B6007EF018 /* SignUpViewModel.swift in Sources */,
+				2A4D202A24BCB4B0007EF018 /* EndpointItem.swift in Sources */,
+				2A4D202224BCAAE4007EF018 /* AuthenticationService.swift in Sources */,
 				2A4E977924B36DE000D98C93 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,7 +536,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A4D201824BC858E007EF018 /* MockURLProtocol.swift in Sources */,
+				2A283F9A24BDF1220019D080 /* APIErrorMock.swift in Sources */,
 				2A0F866124B6350300B56F71 /* NetworkManagerTests.swift in Sources */,
+				2A283F9824BDE8020019D080 /* AuthenticationServiceMock.swift in Sources */,
+				2A283FA524BDFACF0019D080 /* SignInViewModelTests.swift in Sources */,
+				2A283F9524BDE7860019D080 /* SignUpViewModelTests.swift in Sources */,
 				2A4E978E24B36DE200D98C93 /* TwitterAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,7 +19,7 @@ final class NetworkManager {
     func doRequest<T: Codable>(_ request: APIRequest, _ completion: @escaping APIClientCompletion<T>) {
         let urlComponents = createURLComponents(request: request)
     
-        guard let url = urlComponents.url?.appendingPathComponent(request.path) else {
+        guard let url = urlComponents.url?.appendingPathComponent(request.endpointItem.path) else {
             completion(.failure(.invalidURL))
             return
         }
@@ -50,7 +50,7 @@ final class NetworkManager {
     
     private func createUrlRequestWithAllComponents(url: URL, request: APIRequest) -> URLRequest {
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = request.method.rawValue
+        urlRequest.httpMethod = request.endpointItem.httpMethod.rawValue
         urlRequest.httpBody = request.body
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         

@@ -9,14 +9,12 @@
 import Foundation
 
 final class APIRequest {
-    let method: HTTPMethod
-    let path: String
+    let endpointItem: EndpointItem
     var queryItems: [URLQueryItem]?
     var headers: [HTTPHeader]?
     var body: Data?
     
-    init(method: HTTPMethod, path: String) {
-        self.method = method
-        self.path = path
+    init(endpointItem: EndpointItem) {
+        self.endpointItem = endpointItem
     }
 }
