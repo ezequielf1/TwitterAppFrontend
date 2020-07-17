@@ -32,8 +32,34 @@ class ProfileViewModelTests: XCTestCase {
     }
     
     func testWhenRealnameIsSuccessfullyUpdatedThenDidUpdateNameChange() {
+        whenAUserUpdateHisRealnameSuccesfully()
+        thenDidUpdateNameIsUpdated()
+    }
+    
+    func testWhenRealnameHasFailureInUpdateThenDidFailUpdateNameChange() {
+        whenAUserUpdateHisRealnameFailure()
+        thenDidFailUpdateNameIsUpdated()
+    }
+    
+    private func whenAUserUpdateHisRealnameFailure() {
+        mockUserService.updateUserResult = .failure(APIErrorMock.mockError)
+    }
+    
+    private func thenDidFailUpdateNameIsUpdated() {
+        let expectDidFailUpdateNameChange = expectation(description: "DidFailUpdateName should change")
+        viewModel?.didFailUpdateName.subscribe(onNext: { _ in
+            expectDidFailUpdateNameChange.fulfill()
+        })
+        .disposed(by: disposeBag)
+        viewModel?.saveButtonTapped()
+        wait(for: [expectDidFailUpdateNameChange], timeout: 0.1)
+    }
+    
+    private func whenAUserUpdateHisRealnameSuccesfully() {
         mockUserService.updateUserResult = .success(())
-        
+    }
+    
+    private func thenDidUpdateNameIsUpdated() {
         let expectDidUpdateNameChange = expectation(description: "DidUpdateName should change")
         viewModel?.didUpdateName.subscribe(onNext: {
             expectDidUpdateNameChange.fulfill()
@@ -42,18 +68,6 @@ class ProfileViewModelTests: XCTestCase {
         
         viewModel?.saveButtonTapped()
         wait(for: [expectDidUpdateNameChange], timeout: 0.1)
-    }
-    
-    func testWhenRealnameHasFailureInUpdateThenDidFailUpdateNameChange() {
-        mockUserService.updateUserResult = .failure(APIErrorMock.mockError)
-        
-        let expectDidFailUpdateNameChange = expectation(description: "DidFailUpdateName should change")
-        viewModel?.didFailUpdateName.subscribe(onNext: { _ in
-            expectDidFailUpdateNameChange.fulfill()
-        })
-        .disposed(by: disposeBag)
-        viewModel?.saveButtonTapped()
-        wait(for: [expectDidFailUpdateNameChange], timeout: 0.1)
     }
     
     private func givenUserWith(realName: String) {

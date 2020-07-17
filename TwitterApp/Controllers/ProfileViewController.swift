@@ -29,7 +29,7 @@ final class ProfileViewController: UIViewController, Storyboarded {
     
     // MARK: - Private Properties
     private let disposeBag = DisposeBag()
-    private let realNameMaxLength = 15
+    private let realNameMaxLength = 14
     
     // MARK: - LifeCycle Methods
     override func viewDidLoad() {

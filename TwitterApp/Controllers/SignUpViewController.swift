@@ -23,8 +23,8 @@ final class SignUpViewController: UIViewController, Storyboarded {
     
     // MARK: - Private Properties
     private let disposeBag = DisposeBag()
-    private let usernameMaxLength = 15
-    private let realNameMaxLength = 15
+    private let usernameMaxLength = 14
+    private let realNameMaxLength = 14
     var viewModel: SignUpViewModel?
     
     // MARK: - Lifecycle methods

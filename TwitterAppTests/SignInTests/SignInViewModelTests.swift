@@ -20,14 +20,9 @@ class SignInViewModelTests: XCTestCase {
     }
     
     func testWhenUsernameValueChangedThenButtonStateValidatorIsCalled() {
-        viewModel?.username.onNext(mockUser.username)
-        let expectSignInActiveIsCalled = expectation(description: "SignInActive observable is called")
-        viewModel?.signInIsActive.subscribe(onNext: { state in
-            guard state else { return }
-            expectSignInActiveIsCalled.fulfill()
-        })
-        .disposed(by: disposeBag)
-        wait(for: [expectSignInActiveIsCalled], timeout: 0.1)
+        givenAFirstUsername()
+        whenThatUsernameChange()
+        thenSignInActiveIsUpdated()
     }
     
     func testWhenSignInIsTappedWithValidDataThenNavigateToUserMainScreen() {
@@ -38,6 +33,24 @@ class SignInViewModelTests: XCTestCase {
         .disposed(by: disposeBag)
         viewModel?.signInButtonTapped()
         wait(for: [expectDidTapSignInIsCalled], timeout: 0.1)
+    }
+    
+    private func givenAFirstUsername() {
+        viewModel?.username.onNext("First Username")
+    }
+    
+    private func whenThatUsernameChange() {
+        viewModel?.username.onNext("Second username")
+    }
+    
+    private func thenSignInActiveIsUpdated() {
+        let expectSignInActiveIsCalled = expectation(description: "SignInActive observable is called")
+        viewModel?.signInIsActive.subscribe(onNext: { state in
+            guard state else { return }
+            expectSignInActiveIsCalled.fulfill()
+        })
+        .disposed(by: disposeBag)
+        wait(for: [expectSignInActiveIsCalled], timeout: 0.1)
     }
 
 }
