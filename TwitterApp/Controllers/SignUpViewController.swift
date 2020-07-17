@@ -14,11 +14,7 @@ final class SignUpViewController: UIViewController, Storyboarded {
     // MARK: - IBOutlets
     @IBOutlet private weak var usernameTextField: UITextField!
     @IBOutlet private weak var realNameTextField: UITextField!
-    @IBOutlet private weak var signUpButton: UIButton! {
-        didSet {
-            signUpButton.layer.cornerRadius = 15
-        }
-    }
+    @IBOutlet private weak var signUpButton: UIButton!
     @IBOutlet private weak var signInButton: UIButton!
     
     // MARK: - Private Properties

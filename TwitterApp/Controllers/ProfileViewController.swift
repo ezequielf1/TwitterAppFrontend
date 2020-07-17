@@ -13,16 +13,8 @@ import UIKit
 final class ProfileViewController: UIViewController, Storyboarded {
     // MARK: - IBOutlets
     @IBOutlet private weak var realNameTextField: UITextField!
-    @IBOutlet private weak var surnameTextField: UITextField! {
-        didSet {
-            surnameTextField.isUserInteractionEnabled = false
-        }
-    }
-    @IBOutlet private weak var saveButton: UIButton! {
-        didSet {
-            saveButton.layer.cornerRadius = 15
-        }
-    }
+    @IBOutlet private weak var surnameTextField: UITextField!
+    @IBOutlet private weak var saveButton: UIButton!
     
     // MARK: - Public Properties
     var viewModel: ProfileViewModel?

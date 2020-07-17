@@ -12,11 +12,7 @@ import RxCocoa
 
 final class SignInViewController: UIViewController {
     // MARK: - IBOutlets
-    @IBOutlet private weak var signInButton: UIButton! {
-        didSet {
-            signInButton.layer.cornerRadius = 15
-        }
-    }
+    @IBOutlet private weak var signInButton: UIButton!
     @IBOutlet private weak var usernameTextField: UITextField!
     
     // MARK: - Public Properties

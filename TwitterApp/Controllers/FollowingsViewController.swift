@@ -18,11 +18,7 @@ final class FollowingsViewController: UIViewController, Storyboarded {
             tableView.tableFooterView = UIView()
         }
     }
-    @IBOutlet private weak var followButton: UIButton! {
-        didSet {
-            followButton.layer.cornerRadius = 15
-        }
-    }
+    @IBOutlet private weak var followButton: UIButton!
     @IBOutlet private weak var usernameTextField: UITextField!
     
     // MARK: - Public Properties
