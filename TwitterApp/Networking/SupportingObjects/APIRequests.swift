@@ -30,3 +30,8 @@ struct PostTweetRequest: NetworkRequest {
     var path = "/user/postTweet"
     var httpMethod: HTTPMethod = .patch
 }
+
+struct FollowRequest: NetworkRequest {
+    var path = "/user/follow"
+    var httpMethod: HTTPMethod = .patch
+}

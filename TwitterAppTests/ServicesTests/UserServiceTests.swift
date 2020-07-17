@@ -13,6 +13,8 @@ import RxSwift
 class UserServiceTests: XCTestCase {
     private let disposeBag = DisposeBag()
     private let mockUser = User(username: "Mock username", realName: "Mock realName")
+    private let followerUser = User(username: "First user", realName: "First user")
+    private let followedUser = User(username: "Second user", realName: "Second user")
     private var userService: UserService?
     private let networkManagerMock = NetworkManagerMock()
 
@@ -55,6 +57,16 @@ class UserServiceTests: XCTestCase {
             .getFollowingsOf(username: mockUser.username)
             .subscribe(onSuccess: { followings in
                 XCTAssertEqual(2, followings.count, "The response should has the same count of the mock followings result")
+            }, onError: { error in
+                XCTFail("Error was not expected: \(error)")
+            }).disposed(by: disposeBag)
+    }
+    
+    func testWhenStartFollowSuccessfullyThenReturnUserWithTheNewFollowing() {
+        givenStartFollowSuccessResult()
+        userService?.startFollow(followerUsername: followerUser.username, followedUsername: followedUser.username)
+            .subscribe(onSuccess: { user in
+                XCTAssertEqual(user.followings?.first, self.followedUser.username)
             }, onError: { error in
                 XCTFail("Error was not expected: \(error)")
             }).disposed(by: disposeBag)
@@ -106,6 +118,12 @@ class UserServiceTests: XCTestCase {
     
     private func givenNoContentResult() {
         networkManagerMock.desiredResult = .success(nil)
+    }
+    
+    private func givenStartFollowSuccessResult() {
+        networkManagerMock.desiredResult = .success(User(username: followerUser.username,
+                                                realName: followerUser.realName,
+                                                followings: [followedUser.username]))
     }
     
     private func givenSuccessFollowingsResult() {

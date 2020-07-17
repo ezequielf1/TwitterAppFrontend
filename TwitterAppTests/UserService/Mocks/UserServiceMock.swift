@@ -14,6 +14,7 @@ final class UserServiceMock: UserService {
     var getFollowingsResult: Result<[String], Error>?
     var getTweetsResult: Result<[String], Error>?
     var postTweetResult: Result<Void, Error>?
+    var startFollowResult: Result<User, Error>?
     var postTweetCalled = false
     var getTweetsCalled = false
     
@@ -56,6 +57,17 @@ final class UserServiceMock: UserService {
         return Single<Void>.create { single in
             switch self.postTweetResult {
             case .success: single(.success(()))
+            case .failure(let error): single(.error(error))
+            case .none: single(.error(APIErrorMock.mockError))
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func startFollow(followerUsername: String, followedUsername: String) -> Single<User> {
+        return Single<User>.create { single in
+            switch self.startFollowResult {
+            case .success(let user): single(.success(user))
             case .failure(let error): single(.error(error))
             case .none: single(.error(APIErrorMock.mockError))
             }

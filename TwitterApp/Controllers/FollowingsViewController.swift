@@ -18,6 +18,12 @@ final class FollowingsViewController: UIViewController, Storyboarded {
             tableView.tableFooterView = UIView()
         }
     }
+    @IBOutlet private weak var followButton: UIButton! {
+        didSet {
+            followButton.layer.cornerRadius = 15
+        }
+    }
+    @IBOutlet private weak var usernameTextField: UITextField!
     
     // MARK: - Public Properties
     var viewModel: FollowingsViewModel?
@@ -40,16 +46,31 @@ final class FollowingsViewController: UIViewController, Storyboarded {
 // MARK: - Private Methods
 private extension FollowingsViewController {
     func setUpBindings() {
-        viewModel?.followings
+        guard let viewModel = viewModel else { return }
+        viewModel.followings
             .bind(to: tableView.rx.items(cellIdentifier: "LabeledTableViewCell",
                                          cellType: LabeledTableViewCell.self)) { _, tweet, cell in
                                             cell.setup(text: tweet)
             }.disposed(by: disposeBag)
         
+        viewModel.followIsActive
+            .bind(to: followButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        
+        followButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel?.startFollow()
+                self?.usernameTextField.text = nil
+            }).disposed(by: disposeBag)
+        
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak self] indexPath in
                 self?.viewModel?.didTapOnFollowingUser(index: indexPath.row)
             }).disposed(by: disposeBag)
+        
+        usernameTextField.rx.text.orEmpty
+            .bind(to: viewModel.usernameToFollow)
+            .disposed(by: disposeBag)
     }
 }
 

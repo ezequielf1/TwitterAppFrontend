@@ -41,4 +41,12 @@ final class RequestBuilder {
         request.body = parameters.convertToJson()
         return request
     }
+    
+    func buildFollowRequest(followerUsername: String, followedUsername: String) -> APIRequest {
+        let request = APIRequest(request: FollowRequest())
+        let parameters: [String: String] = ["followerUsername": followerUsername,
+                                            "followedUsername": followedUsername]
+        request.body = parameters.convertToJson()
+        return request
+    }
 }

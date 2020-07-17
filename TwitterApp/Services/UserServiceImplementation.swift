@@ -75,4 +75,19 @@ extension UserServiceImplementation: UserService {
             return Disposables.create()
         }
     }
+    
+    func startFollow(followerUsername: String, followedUsername: String) -> Single<User> {
+        return Single<User>.create { single in
+            let request = self.requestBuilder.buildFollowRequest(followerUsername: followerUsername,
+                                                                 followedUsername: followedUsername)
+            self.networkManager.doRequest(request) { (result: APIResult<User>) in
+                switch result {
+                case .success(let user):
+                    if let user = user { single(.success(user)) }
+                case .failure(let error): single(.error(error))
+                }
+            }
+            return Disposables.create()
+        }
+    }
 }

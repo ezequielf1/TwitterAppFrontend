@@ -13,4 +13,5 @@ protocol UserService {
     func updateUser(user: User) -> Single<Void>
     func getTweetsOf(username: String) -> Single<[String]>
     func postTweet(username: String, tweet: String) -> Single<Void>
+    func startFollow(followerUsername: String, followedUsername: String) -> Single<User>
 }

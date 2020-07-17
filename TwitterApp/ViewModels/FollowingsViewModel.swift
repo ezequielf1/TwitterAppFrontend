@@ -13,6 +13,8 @@ final class FollowingsViewModel {
     let followings = BehaviorSubject<[String]>(value: [])
     let didFailAskingFollowings = PublishSubject<Error>()
     let didTapOnFollowingUser = PublishSubject<String>()
+    let followIsActive: Observable<Bool>
+    let usernameToFollow = BehaviorSubject(value: "")
     
     // MARK: - Private Properties
     private let disposeBag = DisposeBag()
@@ -22,6 +24,7 @@ final class FollowingsViewModel {
     init(userService: UserService, username: String) {
         self.userService = userService
         self.username = username
+        followIsActive = usernameToFollow.asObservable().map { !$0.isEmpty }
     }
 }
 
@@ -34,6 +37,16 @@ extension FollowingsViewModel {
                 self?.followings.onNext(followings)
         }) { [weak self] error in
                 self?.didFailAskingFollowings.onNext(error)
+        }.disposed(by: disposeBag)
+    }
+    
+    func startFollow() {
+        guard let followedUsername = usernameToFollow.getUnwrappedValue() else { return }
+        userService.startFollow(followerUsername: username, followedUsername: followedUsername)
+            .subscribe(onSuccess: { [weak self] user in
+                self?.followings.onNext(user.followings ?? [])
+        }) { error in
+                print("Should show error")
         }.disposed(by: disposeBag)
     }
     

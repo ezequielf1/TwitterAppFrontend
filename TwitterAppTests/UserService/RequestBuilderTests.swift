@@ -17,7 +17,7 @@ class RequestBuilderTests: XCTestCase {
         let expectedBody = ["username": mockUser.username, "realName": mockUser.realName].convertToJson()
         let request = requestBuilder.buildCreateUserRequest(username: mockUser.username, realName: mockUser.realName)
         
-        XCTAssert(expectedBody == request.body)
+        checkEqualityBetweenData(expected: expectedBody, actual: request.body)
         XCTAssert(request.request is CreateUserRequest)
     }
     
@@ -25,7 +25,7 @@ class RequestBuilderTests: XCTestCase {
         let expectedBody = ["username": mockUser.username, "realName": mockUser.realName].convertToJson()
         let request = requestBuilder.buildUpdateUserRequest(user: mockUser)
         
-        XCTAssert(expectedBody == request.body)
+        checkEqualityBetweenData(expected: expectedBody, actual: request.body)
         XCTAssert(request.request is UpdateUserRequest)
     }
     
@@ -45,12 +45,27 @@ class RequestBuilderTests: XCTestCase {
         XCTAssert(request.request is GetTweetsRequest)
     }
     
-    func testWhenBuildPostRequestThenReturnPostTweetRequestWithDataInBody() {
+    func testWhenBuildPostTweetRequestThenReturnPostTweetRequestWithDataInBody() {
         let mockTweet = "Mock tweet"
         let expectedBody = ["username": mockUser.username, "tweet": mockTweet].convertToJson()
         let request = requestBuilder.buildPostTweetRequest(username: mockUser.username, tweet: mockTweet)
         
-        XCTAssertTrue(expectedBody == request.body)
+        checkEqualityBetweenData(expected: expectedBody, actual: request.body)
         XCTAssertTrue(request.request is PostTweetRequest)
+    }
+    
+    func testWhenBuildFollowRequestThenReturnFollowRequestWithDataInBody() {
+        let followerUsername = "First user"
+        let followedUsername = "Second user"
+        let expectedBody = ["followerUsername": followerUsername, "followedUsername": followedUsername]
+            .convertToJson()
+        let request = requestBuilder.buildFollowRequest(followerUsername: followerUsername, followedUsername: followedUsername)
+        
+        checkEqualityBetweenData(expected: expectedBody, actual: request.body)
+        XCTAssertTrue(request.request is FollowRequest)
+    }
+    
+    private func checkEqualityBetweenData(expected: Data?, actual: Data?) {
+        XCTAssertTrue(expected == actual)
     }
 }

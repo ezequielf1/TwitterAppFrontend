@@ -21,7 +21,7 @@ class ProfileViewModelTests: XCTestCase {
     }
     
     func testWhenUserChangeRealNameThenSaveButtonChangeItsStateToEnabled() {
-        whenThatUserChangeHisRealName(to: "Mock new real name")
+        whenTheUserChangeRealname(to: "Mock new real name")
         thenIsSaveActiveChangeItsState(to: true)
     }
     
@@ -68,7 +68,7 @@ class ProfileViewModelTests: XCTestCase {
         wait(for: [expectDidUpdateNameChange], timeout: 0.1)
     }
     
-    private func whenThatUserChangeHisRealName(to realName: String) {
+    private func whenTheUserChangeRealname(to realName: String) {
         viewModel?.realName.onNext(realName)
     }
     
