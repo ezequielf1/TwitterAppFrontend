@@ -8,53 +8,52 @@
 
 import Foundation
 
-final class NetworkManager {
+protocol NetworkManager {
     typealias APIClientCompletion<E> = (APIResult<E>) -> Void
     
+    func doRequest<T: Codable>(_ request: APIRequest,
+                               _ completion: @escaping APIClientCompletion<T>)
+}
+
+final class NetworkManagerImplementation: NetworkManager {
+    static var shared = NetworkManagerImplementation()
     var session = URLSession.shared
-    private let baseURL = URL(string: "http://localhost:8080")
+    
     private let decoder = JSONDecoder()
     
+    private init() {}
     
-    func doRequest<T: Codable>(_ request: APIRequest, _ completion: @escaping APIClientCompletion<T>) {
-        let urlComponents = createURLComponents(request: request)
-    
-        guard let url = urlComponents.url?.appendingPathComponent(request.endpointItem.path) else {
-            completion(.failure(.invalidURL))
+    func doRequest<T: Codable>(_ request: APIRequest,
+                               _ completion: @escaping APIClientCompletion<T>) {
+        guard let urlRequest = URLRequestBuilder().buildURLRequest(for: request) else {
+            completion(.failure(InvalidURLError()))
             return
         }
-        let urlRequest = createUrlRequestWithAllComponents(url: url, request: request)
-        
         session.dataTask(with: urlRequest) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else {
-                completion(.failure(.requestFailed))
+                completion(.failure(RequestFailureError()))
                 return
             }
-            if let decodedItem = try? self.decoder.decode(T.self, from: data ?? Data()) {
-                completion(.success(decodedItem))
-            } else {
-                completion(.failure(.decodingFailure))
-            }
+            self.handleResponse(httpResponse: httpResponse, data: data, completion: completion)
         }.resume()
     }
     
-    private func createURLComponents(request: APIRequest) -> URLComponents {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = baseURL?.scheme
-        urlComponents.host = baseURL?.host
-        urlComponents.port = baseURL?.port
-        urlComponents.path = baseURL?.path ?? ""
-        urlComponents.queryItems = request.queryItems
-        return urlComponents
+    private func handleResponse<T: Codable>(httpResponse: HTTPURLResponse,
+                                            data: Data?,
+                                            completion: @escaping APIClientCompletion<T>) {
+        switch httpResponse.statusCode {
+        case 204:
+            completion(.success(nil))
+        case 500...599:
+            let error: InternalServerError? = self.decode(data: data)
+            completion(.failure(error ?? DecodingError()))
+        default:
+            let decodedItem: T? = self.decode(data: data)
+            completion(decodedItem != nil ? .success(decodedItem) : .failure(DecodingError()))
+        }
     }
     
-    private func createUrlRequestWithAllComponents(url: URL, request: APIRequest) -> URLRequest {
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = request.endpointItem.httpMethod.rawValue
-        urlRequest.httpBody = request.body
-        urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        
-        request.headers?.forEach { urlRequest.addValue($0.value, forHTTPHeaderField: $0.field) }
-        return urlRequest
+    private func decode<T: Codable>(data: Data?) -> T? {
+        return try? decoder.decode(T.self, from: data ?? Data())
     }
 }

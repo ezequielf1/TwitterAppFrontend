@@ -8,16 +8,13 @@
 
 import RxSwift
 
-final class AppCoordinator: Coordinator {
+final class AppCoordinator: BaseCoordinator {
     private let disposeBag = DisposeBag()
-    var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
-    
-    func start() {
-        showSignUpScreen()
+    override func start() {
+        let coordinator = SignUpCoordinator()
+        coordinator.navigationController = self.navigationController
+        self.start(coordinator: coordinator)
     }
     
     func showSignUpScreen() {

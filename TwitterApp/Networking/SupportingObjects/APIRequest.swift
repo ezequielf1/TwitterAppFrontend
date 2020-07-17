@@ -8,13 +8,13 @@
 
 import Foundation
 
-final class APIRequest {
-    let endpointItem: EndpointItem
+class APIRequest {
+    let request: NetworkRequest
     var queryItems: [URLQueryItem]?
     var headers: [HTTPHeader]?
     var body: Data?
     
-    init(endpointItem: EndpointItem) {
-        self.endpointItem = endpointItem
+    init(request: NetworkRequest) {
+        self.request = request
     }
 }

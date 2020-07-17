@@ -41,7 +41,7 @@ class SignUpViewModelTests: XCTestCase {
             expectDidSignUpCalled.fulfill()
         })
         .disposed(by: disposeBag)
-        viewModel?.continueButtonTapped()
+        viewModel?.signUpButtonTapped()
         wait(for: [expectDidSignUpCalled], timeout: 0.1)
     }
     
@@ -53,7 +53,7 @@ class SignUpViewModelTests: XCTestCase {
             expectDidSignUpFailureCalled.fulfill()
         })
         .disposed(by: disposeBag)
-        viewModel?.continueButtonTapped()
+        viewModel?.signUpButtonTapped()
         wait(for: [expectDidSignUpFailureCalled], timeout: 0.1)
     }
     
@@ -66,5 +66,4 @@ class SignUpViewModelTests: XCTestCase {
         viewModel?.signInButtonTapped()
         wait(for: [expectDidTapSignInCalled], timeout: 0.1)
     }
-
 }

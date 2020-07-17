@@ -23,7 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func startApp(navController: UINavigationController) {
-        coordinator = AppCoordinator(navigationController: navController)
+        coordinator = AppCoordinator()
+        coordinator?.navigationController = navController
         coordinator?.start()
     }
 }

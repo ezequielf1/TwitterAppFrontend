@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LabeledTableViewCell" customModule="TwitterApp" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LabeledTableViewCell" id="eAY-AH-4Aw" customClass="LabeledTableViewCell" customModule="TwitterApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eAY-AH-4Aw" id="O0t-Rb-eIw">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e8K-NU-4Ic">
+                        <rect key="frame" x="8" y="8" width="398" height="28"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="e8K-NU-4Ic" secondAttribute="bottom" constant="8" id="7Rs-dI-O9H"/>
+                    <constraint firstItem="e8K-NU-4Ic" firstAttribute="top" secondItem="O0t-Rb-eIw" secondAttribute="top" constant="8" id="M1I-JS-3SP"/>
+                    <constraint firstItem="e8K-NU-4Ic" firstAttribute="leading" secondItem="O0t-Rb-eIw" secondAttribute="leading" constant="8" id="aBc-kD-Zf1"/>
+                    <constraint firstAttribute="trailing" secondItem="e8K-NU-4Ic" secondAttribute="trailing" constant="8" id="f7l-nR-rpM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="label" destination="e8K-NU-4Ic" id="Cht-b9-i2m"/>
+            </connections>
+            <point key="canvasLocation" x="196" y="59"/>
+        </tableViewCell>
+    </objects>
+</document>

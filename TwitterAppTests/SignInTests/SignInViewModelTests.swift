@@ -29,5 +29,15 @@ class SignInViewModelTests: XCTestCase {
         .disposed(by: disposeBag)
         wait(for: [expectSignInActiveIsCalled], timeout: 0.1)
     }
+    
+    func testWhenSignInIsTappedWithValidDataThenNavigateToUserMainScreen() {
+        let expectDidTapSignInIsCalled = expectation(description: "DidTapSignIn observable is called")
+        viewModel?.didTapSignIn.subscribe(onNext: {
+            expectDidTapSignInIsCalled.fulfill()
+        })
+        .disposed(by: disposeBag)
+        viewModel?.signInButtonTapped()
+        wait(for: [expectDidTapSignInIsCalled], timeout: 0.1)
+    }
 
 }

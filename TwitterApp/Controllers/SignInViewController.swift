@@ -12,7 +12,11 @@ import RxCocoa
 
 final class SignInViewController: UIViewController {
     // MARK: - IBOutlets
-    @IBOutlet private weak var signInButton: UIButton!
+    @IBOutlet private weak var signInButton: UIButton! {
+        didSet {
+            signInButton.layer.cornerRadius = 15
+        }
+    }
     @IBOutlet private weak var usernameTextField: UITextField!
     
     // MARK: - Public Properties
@@ -36,12 +40,14 @@ private extension SignInViewController {
         usernameTextField.rx.text.orEmpty
             .bind(to: viewModel.username)
             .disposed(by: disposeBag)
-    }
-}
-
-// MARK: - IBActions
-private extension SignInViewController {
-    @IBAction func signInButtonTapped(_ sender: UIButton) {
-        viewModel?.signInButtonTapped()
+        
+        signInButton.rx.tap
+            .subscribe(onNext: { _ in
+                viewModel.signInButtonTapped()
+            }).disposed(by: disposeBag)
+        
+        viewModel.signInIsActive
+            .bind(to: signInButton.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
 }

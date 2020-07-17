@@ -7,6 +7,6 @@
 //
 
 enum APIResult<Body> {
-    case success(Body)
-    case failure(APIError)
+    case success(Body?)
+    case failure(NetworkError)
 }

@@ -10,59 +10,123 @@ import XCTest
 @testable import TwitterApp
 
 class NetworkManagerTests: XCTestCase {
-    var networkManager: NetworkManager?
-    var expectation: XCTestExpectation!
-    let apiURL = URL(string: "https://localhost:8080/user/create")!
-    let apiRequest = APIRequest(endpointItem: .createUser)
-    
+    var networkManager: NetworkManagerImplementation?
+    var createUserRequest: APIRequest?
+    let mockSession = URLSessionMock()
     
     override func setUp() {
-        let configuration = URLSessionConfiguration.default
-        configuration.protocolClasses = [MockURLProtocol.self]
-        let urlSession = URLSession(configuration: configuration)
-        
-        networkManager = NetworkManager()
-        networkManager?.session = urlSession
-        expectation = expectation(description: "Expectation")
+        networkManager = NetworkManagerImplementation.shared
+        networkManager?.session = mockSession
+        createUserRequest = APIRequest(request: CreateUserRequest())
     }
     
-    func testCreateUserSuccessfulResponse() {
+    func testSuccessfullResponse() {
         let mockUser = createMockUserResponse()
-        setMockURLProtocolRequestHandler(with: createJson(with: mockUser))
+        let data = createJson(with: mockUser)
+        mockSession.data = data
+        mockSession.response = createMockURLResponseWith(statusCode: 200)
         
-        networkManager?.doRequest(apiRequest, { (result: APIResult<User>) in
-            switch result {
-            case .success(let user):
-                XCTAssertEqual(user.username, mockUser.username)
-                XCTAssertEqual(user.realName, mockUser.realName)
-            case .failure(let error):
-                XCTFail("Error was not expected: \(error)")
-            }
-            self.expectation.fulfill()
-        })
-        wait(for: [expectation], timeout: 2)
+        let expect = expectation(description: "")
+        var response: APIResult<User>?
+        
+        networkManager?.doRequest(createUserRequest!) { (result: APIResult<User>) in
+            response = result
+            expect.fulfill()
+        }
+        wait(for: [expect], timeout: 2)
+        if case .success(let user) = response {
+            XCTAssertEqual(user?.username, mockUser.username)
+        } else {
+            XCTFail("Error was not expected")
+        }
     }
     
-    func testCreateUserParsingFailure() {
-        setMockURLProtocolRequestHandler(with: Data())
-        
-        networkManager?.doRequest(apiRequest, { (result: APIResult<User>) in
-            switch result {
-            case .success:
-                XCTFail("Success response was not expected")
-            case .failure(let error):
-                XCTAssertEqual(error, APIError.decodingFailure)
-            }
-            self.expectation.fulfill()
-        })
-        
-        wait(for: [expectation], timeout: 2)
+    func testDecodingFailureResponse() {
+        let expect = expectation(description: "Decoding failure")
+        var response: APIResult<User>?
+        mockSession.response = createMockURLResponseWith(statusCode: 200)
+
+        networkManager?.doRequest(createUserRequest!) { (result: APIResult<User>) in
+            response = result
+            expect.fulfill()
+        }
+        wait(for: [expect], timeout: 2)
+        if case .failure(let error) = response {
+            XCTAssert(error is DecodingError)
+        } else {
+            XCTFail("Success was not expected")
+        }
     }
     
-    private func setMockURLProtocolRequestHandler(with data: Data?) {
-        MockURLProtocol.requestHandler = { request in
-            let response = HTTPURLResponse(url: self.apiURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-            return (response, data)
+    func testRequestFailureResponse() {
+        let expect = expectation(description: "Request failure")
+        var response: APIResult<User>?
+        
+        networkManager?.doRequest(createUserRequest!) { (result: APIResult<User>) in
+            response = result
+            expect.fulfill()
+        }
+        wait(for: [expect], timeout: 2)
+        if case .failure(let error) = response {
+            XCTAssert(error is RequestFailureError)
+        } else {
+            XCTFail("Success was not expected")
+        }
+    }
+    
+    func testInvalidURLFailureResponse() {
+        let expect = expectation(description: "Invalid URL failure")
+        var response: APIResult<User>?
+        let request = APIRequest(request: MockInvalidURLAPIRequest())
+        
+        networkManager?.doRequest(request, { (result: APIResult<User>) in
+            response = result
+            expect.fulfill()
+        })
+        wait(for: [expect], timeout: 0.5)
+        if case .failure(let error) = response {
+            XCTAssert(error is InvalidURLError)
+        } else {
+            XCTFail("Success was not expected")
+        }
+    }
+    
+    func testNoContentSuccessResponse() {
+        let expect = expectation(description: "No content success response")
+        let request = APIRequest(request: MockPutAPIRequest())
+        var result: APIResult<String?>?
+        mockSession.response = createMockURLResponseWith(statusCode: 204)
+        
+        networkManager?.doRequest(request, { (response: APIResult<String?>) in
+            result = response
+            expect.fulfill()
+        })
+        wait(for: [expect], timeout: 0.5)
+        if case .success(let response) = result {
+            XCTAssertNil(response ?? nil)
+        } else {
+            XCTFail("Error was not expected")
+        }
+    }
+    
+    func testInternalServerErrorFailureResponse() {
+        let json: [String: String] = ["message": "Mock internal server error"]
+        
+        let expect = expectation(description: "Internal server error")
+        let request = APIRequest(request: MockPutAPIRequest())
+        var result: APIResult<String?>?
+        mockSession.response = createMockURLResponseWith(statusCode: 500)
+        mockSession.data = json.convertToJson()
+        
+        networkManager?.doRequest(request, { (response: APIResult<String?>) in
+            result = response
+            expect.fulfill()
+        })
+        wait(for: [expect], timeout: 0.5)
+        if case .failure(let error) = result {
+            XCTAssert(error is InternalServerError)
+        } else {
+            XCTFail("Success was not expected")
         }
     }
     
@@ -71,12 +135,11 @@ class NetworkManagerTests: XCTestCase {
     }
     
     private func createJson(with user: User) -> Data? {
-        let jsonString = """
-        {
-        "username": "\(user.username)",
-        "realName": "\(user.realName)"
-        }
-        """
-        return jsonString.data(using: .utf8)
+        let parameters: [String: String] = ["username": user.username, "realName": user.realName]
+        return parameters.convertToJson()
+    }
+    
+    private func createMockURLResponseWith(statusCode: Int) -> URLResponse? {
+        HTTPURLResponse(url: URL(fileURLWithPath: "url"), statusCode: statusCode, httpVersion: nil, headerFields: nil)
     }
 }

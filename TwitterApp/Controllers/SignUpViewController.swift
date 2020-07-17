@@ -14,11 +14,17 @@ final class SignUpViewController: UIViewController, Storyboarded {
     // MARK: - IBOutlets
     @IBOutlet private weak var usernameTextField: UITextField!
     @IBOutlet private weak var realNameTextField: UITextField!
-    @IBOutlet private weak var continueButton: UIButton!
+    @IBOutlet private weak var signUpButton: UIButton! {
+        didSet {
+            signUpButton.layer.cornerRadius = 15
+        }
+    }
     @IBOutlet private weak var signInButton: UIButton!
     
     // MARK: - Private Properties
     private let disposeBag = DisposeBag()
+    private let usernameMaxLength = 15
+    private let realNameMaxLength = 15
     var viewModel: SignUpViewModel?
     
     // MARK: - Lifecycle methods
@@ -32,7 +38,7 @@ final class SignUpViewController: UIViewController, Storyboarded {
 private extension SignUpViewController {
     func setUpBindings() {
         guard let viewModel = self.viewModel else { return }
-        
+        setTextFieldMaxLengths()
         usernameTextField.rx.text.orEmpty
             .bind(to: viewModel.username)
             .disposed(by: disposeBag)
@@ -42,18 +48,40 @@ private extension SignUpViewController {
             .disposed(by: disposeBag)
         
         viewModel.isRegistrationActive
-            .bind(to: continueButton.rx.isEnabled)
+            .bind(to: signUpButton.rx.isEnabled)
             .disposed(by: disposeBag)
+        
+        signUpButton.rx.tap
+            .subscribe(onNext: { _ in
+                viewModel.signUpButtonTapped()
+            }).disposed(by: disposeBag)
+        
+        signInButton.rx.tap
+            .subscribe(onNext: { _ in
+                viewModel.signInButtonTapped()
+            }).disposed(by: disposeBag)
+    }
+    
+    func setTextFieldMaxLengths() {
+        usernameTextField.rx.text.orEmpty.scan("") { [weak self] (previous, new) in
+            guard let self = self else { return nil }
+            return new.count > self.usernameMaxLength ?
+                previous ?? String(new.prefix(self.usernameMaxLength))
+                : new
+        }.subscribe(usernameTextField.rx.text).disposed(by: disposeBag)
+        
+        realNameTextField.rx.text.orEmpty.scan("") { [weak self] (previous, new) in
+            guard let self = self else { return nil }
+            return new.count > self.realNameMaxLength ?
+                previous ?? String(new.prefix(self.realNameMaxLength))
+                : new
+        }.subscribe(realNameTextField.rx.text).disposed(by: disposeBag)
     }
 }
 
-// MARK: - IBActions
-private extension SignUpViewController {
-    @IBAction func continueButtonTapped(_ sender: UIButton) {
-        viewModel?.continueButtonTapped()
-    }
-    
-    @IBAction func signInButtonTapped(_ sender: UIButton) {
-        viewModel?.signInButtonTapped()
+// MARK: - Alertable
+extension SignUpViewController: Alertable {
+    func actionsForAlert() -> [UIAlertAction] {
+        return [UIAlertAction(title: "Ok", style: .cancel, handler: nil)]
     }
 }

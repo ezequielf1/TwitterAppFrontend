@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserDetailViewController" customModule="TwitterApp" customModuleProvider="target">
+            <connections>
+                <outlet property="segmentedControl" destination="krF-SA-AKT" id="cmh-SW-Oe1"/>
+                <outlet property="tableView" destination="RQJ-Pf-icy" id="aiH-R9-gl4"/>
+                <outlet property="view" destination="iN0-l3-epB" id="QmN-jP-jIs"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="hIc-PU-ETc">
+                    <rect key="frame" x="16" y="16" width="382" height="704"/>
+                    <subviews>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="krF-SA-AKT">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="41"/>
+                            <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="Rwv-MW-LCb"/>
+                            </constraints>
+                            <segments>
+                                <segment title="Followings"/>
+                                <segment title="Tweets"/>
+                            </segments>
+                        </segmentedControl>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RQJ-Pf-icy">
+                            <rect key="frame" x="0.0" y="56" width="382" height="648"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </tableView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="hIc-PU-ETc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="5sB-7K-Kpc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="hIc-PU-ETc" secondAttribute="bottom" constant="16" id="Tvz-1K-SnQ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="hIc-PU-ETc" secondAttribute="trailing" constant="16" id="Yoo-98-iUp"/>
+                <constraint firstItem="hIc-PU-ETc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="brV-tq-r6L"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="132" y="112"/>
+        </view>
+    </objects>
+</document>
