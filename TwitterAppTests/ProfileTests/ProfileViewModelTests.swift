@@ -14,20 +14,18 @@ class ProfileViewModelTests: XCTestCase {
     private let disposeBag = DisposeBag()
     private var viewModel: ProfileViewModel?
     private let mockUserService = UserServiceMock()
+    private let mockUser = User(username: "Mock username", realName: "Mock realname")
 
     override func setUpWithError() throws {
-        viewModel = ProfileViewModel(userService: mockUserService)
-        LoggedUser.shared.username = "MockUserLogged"
+        viewModel = ProfileViewModel(user: mockUser, userService: mockUserService)
     }
     
     func testWhenUserChangeRealNameThenSaveButtonChangeItsStateToEnabled() {
-        givenUserWith(realName: "Initial mock real name")
         whenThatUserChangeHisRealName(to: "Mock new real name")
         thenIsSaveActiveChangeItsState(to: true)
     }
     
     func testWhenUserDoesNotChangeRealNameThenSaveButtonIsDisabled() {
-        givenUserWith(realName: "Initial mock real name")
         thenIsSaveActiveChangeItsState(to: false)
     }
     
@@ -68,10 +66,6 @@ class ProfileViewModelTests: XCTestCase {
         
         viewModel?.saveButtonTapped()
         wait(for: [expectDidUpdateNameChange], timeout: 0.1)
-    }
-    
-    private func givenUserWith(realName: String) {
-        LoggedUser.shared.realName = "MockInitialRealName"
     }
     
     private func whenThatUserChangeHisRealName(to realName: String) {

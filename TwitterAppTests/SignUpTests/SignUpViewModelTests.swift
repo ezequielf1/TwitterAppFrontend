@@ -37,7 +37,7 @@ class SignUpViewModelTests: XCTestCase {
         mockAuthenticationService.createUserResult = .success(mockUser)
         
         let expectDidSignUpCalled = expectation(description: "didSignUp observable was called")
-        viewModel?.didSignUp.subscribe(onNext: {
+        viewModel?.didSignUp.subscribe(onNext: { _ in
             expectDidSignUpCalled.fulfill()
         })
         .disposed(by: disposeBag)

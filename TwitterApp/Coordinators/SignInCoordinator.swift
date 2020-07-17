@@ -24,15 +24,15 @@ final class SignInCoordinator: BaseCoordinator {
     }
     
     private func setUpSignInScreenBindings(viewModel: SignInViewModel) {
-        viewModel.didTapSignIn.subscribe(onNext: { [weak self] in
-            self?.startLoggedUserFlow()
+        viewModel.didTapSignIn.subscribe(onNext: { [weak self] user in
+            self?.startLoggedUserFlow(with: user)
         })
         .disposed(by: disposeBag)
     }
     
-    private func startLoggedUserFlow() {
+    private func startLoggedUserFlow(with user: User) {
         parentCoordinator?.didFinish(coordinator: self)
-        let userFlowCoordinator = UserFlowCoordinator()
+        let userFlowCoordinator = UserFlowCoordinator(loggedUser: user)
         userFlowCoordinator.navigationController = navigationController
         start(coordinator: userFlowCoordinator)
     }

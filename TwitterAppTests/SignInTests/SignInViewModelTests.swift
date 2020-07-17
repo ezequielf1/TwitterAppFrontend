@@ -27,7 +27,7 @@ class SignInViewModelTests: XCTestCase {
     
     func testWhenSignInIsTappedWithValidDataThenNavigateToUserMainScreen() {
         let expectDidTapSignInIsCalled = expectation(description: "DidTapSignIn observable is called")
-        viewModel?.didTapSignIn.subscribe(onNext: {
+        viewModel?.didTapSignIn.subscribe(onNext: { _ in
             expectDidTapSignInIsCalled.fulfill()
         })
         .disposed(by: disposeBag)

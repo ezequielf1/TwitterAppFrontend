@@ -12,7 +12,11 @@ final class UserFlowCoordinator: BaseCoordinator {
     private let disposeBag = DisposeBag()
     private let storyboardName = "UserStoryboard"
     private let userService = UserServiceImplementation()
-    private let loggedUsername = LoggedUser.shared.username ?? ""
+    private let loggedUser: User
+    
+    init(loggedUser: User) {
+        self.loggedUser = loggedUser
+    }
     
     override func start() {
         let tabBarVC = TabBarController.instantiate(storyBoardName: storyboardName)
@@ -27,7 +31,7 @@ final class UserFlowCoordinator: BaseCoordinator {
     
     private func buildProfileScreen() -> ProfileViewController {
         let profileVC = ProfileViewController.instantiate(storyBoardName: storyboardName)
-        let profileViewModel = ProfileViewModel(userService: userService)
+        let profileViewModel = ProfileViewModel(user: loggedUser, userService: userService)
         profileVC.viewModel = profileViewModel
         setUpBindingsForProfileVC(viewModel: profileViewModel, viewController: profileVC)
         return profileVC
@@ -35,7 +39,7 @@ final class UserFlowCoordinator: BaseCoordinator {
     
     private func buildFollowingsScreen() -> FollowingsViewController {
         let followingsVC = FollowingsViewController.instantiate(storyBoardName: storyboardName)
-        let followingsViewModel = FollowingsViewModel(userService: userService, username: loggedUsername)
+        let followingsViewModel = FollowingsViewModel(userService: userService, username: loggedUser.username)
         followingsVC.viewModel = followingsViewModel
         setUpBindingsForFollowingsVC(viewModel: followingsViewModel, viewController: followingsVC)
         return followingsVC
@@ -43,7 +47,7 @@ final class UserFlowCoordinator: BaseCoordinator {
     
     private func buildTweetsScreen() -> TweetsViewController {
         let tweetsVC = TweetsViewController.instantiate(storyBoardName: storyboardName)
-        tweetsVC.viewModel = TweetsViewModel(userService: userService, username: loggedUsername)
+        tweetsVC.viewModel = TweetsViewModel(userService: userService, username: loggedUser.username)
         return tweetsVC
     }
     

@@ -17,7 +17,6 @@ class FollowingsViewModelTests: XCTestCase {
     
     override func setUpWithError() throws {
         viewModel = FollowingsViewModel(userService: mockUserService, username: "MockLoggedUser")
-        LoggedUser.shared.username = "MockUserLogged"
     }
     
     func testWhenAskFollowingsSuccessfulThenUpdateFollowingsObservable() {

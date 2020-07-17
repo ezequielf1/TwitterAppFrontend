@@ -12,16 +12,17 @@ final class SignInViewModel {
     // MARK: - Public Properties
     let username = BehaviorSubject(value: "")
     let signInIsActive: Observable<Bool>
-    let didTapSignIn = PublishSubject<Void>()
+    let didTapSignIn = PublishSubject<User>()
     
     init() {
         signInIsActive = username.asObservable().map { !$0.isEmpty }
     }
     
     func signInButtonTapped() {
-        if let username = username.getUnwrappedValue() {
-            LoggedUser.shared.username = username
-            didTapSignIn.onNext(())
-        }
+        didTapSignIn.onNext((getLoggedUser()))
+    }
+    
+    private func getLoggedUser() -> User {
+        return User(username: username.getUnwrappedValue() ?? "", realName: "")
     }
 }

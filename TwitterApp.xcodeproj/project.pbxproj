@@ -39,7 +39,6 @@
 		2A283FD224BE44D60019D080 /* FollowingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283FD124BE44D60019D080 /* FollowingsViewController.swift */; };
 		2A283FD424BE45560019D080 /* FollowingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283FD324BE45560019D080 /* FollowingsViewModel.swift */; };
 		2A283FD924BE468C0019D080 /* FollowingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A283FD824BE468C0019D080 /* FollowingsViewModelTests.swift */; };
-		2A36EDB024BF39A6009BBEC2 /* LoggedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A36EDAF24BF39A6009BBEC2 /* LoggedUser.swift */; };
 		2A36EDB224BF4368009BBEC2 /* UserFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A36EDB124BF4368009BBEC2 /* UserFlowCoordinator.swift */; };
 		2A36EDB424BF7488009BBEC2 /* TableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A36EDB324BF7488009BBEC2 /* TableView+Extensions.swift */; };
 		2A36EDB624BF8A54009BBEC2 /* NetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A36EDB524BF8A54009BBEC2 /* NetworkRequest.swift */; };
@@ -127,7 +126,6 @@
 		2A283FD124BE44D60019D080 /* FollowingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingsViewController.swift; sourceTree = "<group>"; };
 		2A283FD324BE45560019D080 /* FollowingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingsViewModel.swift; sourceTree = "<group>"; };
 		2A283FD824BE468C0019D080 /* FollowingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingsViewModelTests.swift; sourceTree = "<group>"; };
-		2A36EDAF24BF39A6009BBEC2 /* LoggedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedUser.swift; sourceTree = "<group>"; };
 		2A36EDB124BF4368009BBEC2 /* UserFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFlowCoordinator.swift; sourceTree = "<group>"; };
 		2A36EDB324BF7488009BBEC2 /* TableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+Extensions.swift"; sourceTree = "<group>"; };
 		2A36EDB524BF8A54009BBEC2 /* NetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequest.swift; sourceTree = "<group>"; };
@@ -504,7 +502,6 @@
 			isa = PBXGroup;
 			children = (
 				2A4D202B24BCB7CB007EF018 /* User.swift */,
-				2A36EDAF24BF39A6009BBEC2 /* LoggedUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -780,7 +777,6 @@
 				2A283F9024BDDFC70019D080 /* Storyboardead.swift in Sources */,
 				2A0F866A24B647A000B56F71 /* NetworkManager.swift in Sources */,
 				2A4D203024BCB93F007EF018 /* Coordinator.swift in Sources */,
-				2A36EDB024BF39A6009BBEC2 /* LoggedUser.swift in Sources */,
 				2A4E977724B36DE000D98C93 /* AppDelegate.swift in Sources */,
 				2A9D927124C082E000855B63 /* NetworkError.swift in Sources */,
 				2A9D927624C0907600855B63 /* URLRequestBuilder.swift in Sources */,

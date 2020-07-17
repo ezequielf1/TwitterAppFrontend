@@ -65,8 +65,8 @@ private extension ProfileViewController {
     }
     
     func setUpView() {
-        realNameTextField.text = viewModel?.initialRealName
-        surnameTextField.text = viewModel?.surname
+        realNameTextField.text = viewModel?.loggedUser.realName
+        surnameTextField.text = viewModel?.loggedUser.username
     }
 }
 

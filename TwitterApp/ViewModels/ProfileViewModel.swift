@@ -10,9 +10,7 @@ import RxSwift
 
 final class ProfileViewModel {
     // MARK: - Public Properties
-    let realName = BehaviorSubject(value: LoggedUser.shared.realName ?? "")
-    let surname = LoggedUser.shared.username
-    var initialRealName = LoggedUser.shared.realName ?? ""
+    let realName = BehaviorSubject(value: "")
     var isSaveActive: Observable<Bool> = .empty()
     
     let didUpdateName = PublishSubject<Void>()
@@ -21,21 +19,25 @@ final class ProfileViewModel {
     // MARK: - Private Properties
     private let userService: UserService
     private let disposeBag = DisposeBag()
-    private let loggedUser = LoggedUser.shared
+    let loggedUser: User
     
-    init(userService: UserService) {
+    init(user: User, userService: UserService) {
         self.userService = userService
-        isSaveActive = realName.asObservable().map { $0 != self.initialRealName && !$0.isEmpty }
+        loggedUser = user
+        setSaveStateBehavior()
     }
     
     func saveButtonTapped() {
-        guard let username = loggedUser.username else { return }
-        userService.updateUser(user: User(username: username,
+        userService.updateUser(user: User(username: loggedUser.username,
                                           realName: realName.getUnwrappedValue() ?? ""))
             .observeOn(MainScheduler.instance).subscribe(onSuccess: { [weak self] in
                 self?.didUpdateName.onNext(())
             }) { [weak self] error in
                 self?.didFailUpdateName.onNext(error)
         }.disposed(by: disposeBag)
+    }
+    
+    private func setSaveStateBehavior() {
+        isSaveActive = realName.asObservable().map { $0 != self.loggedUser.realName && !$0.isEmpty }
     }
 }

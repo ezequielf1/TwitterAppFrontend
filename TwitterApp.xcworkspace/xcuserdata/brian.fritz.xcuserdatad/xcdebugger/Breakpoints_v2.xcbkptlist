@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F58894AC-0637-476E-9D6D-4C791B873273"
+            uuid = "3BB2D526-B5CF-4166-827C-348F9AA6280F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TwitterApp/ViewModels/ProfileViewModel.swift"
+            filePath = "TwitterApp/ViewModels/FollowingsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "saveButtonTapped()"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "getFollowings()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

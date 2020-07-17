@@ -14,14 +14,13 @@ final class SignUpViewModel {
     let realName = BehaviorSubject(value: "")
     let isRegistrationActive: Observable<Bool>
     
-    let didSignUp = PublishSubject<Void>()
+    let didSignUp = PublishSubject<User>()
     let didFailSignUp = PublishSubject<Error>()
     let didSignInTapped = PublishSubject<Void>()
     
     // MARK: - Private Properties
     private let disposeBag = DisposeBag()
     private let authenticationService: Authentication
-    private var loggedUser = LoggedUser.shared
     
     init(authenticationService: Authentication) {
         self.authenticationService = authenticationService
@@ -37,8 +36,8 @@ extension SignUpViewModel {
                           realName: realName.getUnwrappedValue() ?? "")
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] _ in
-                self?.updateLoggedUser()
-                self?.didSignUp.onNext(())
+                guard let self = self else { return }
+                self.didSignUp.onNext(self.getLoggedUser())
             }, onError: { [weak self] error in
                 self?.didFailSignUp.onNext(error)
             })
@@ -52,8 +51,7 @@ extension SignUpViewModel {
 
 // MARK: - Private Methods
 private extension SignUpViewModel {
-    func updateLoggedUser() {
-        loggedUser.username = username.getUnwrappedValue()
-        loggedUser.realName = realName.getUnwrappedValue()
+    func getLoggedUser() -> User {
+        return User(username: username.getUnwrappedValue() ?? "", realName: realName.getUnwrappedValue() ?? "")
     }
 }

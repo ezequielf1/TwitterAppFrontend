@@ -25,8 +25,8 @@ final class SignUpCoordinator: BaseCoordinator {
     
     private func setUpSignUpScreenBindings(signUpViewModel: SignUpViewModel,
                                            viewController: SignUpViewController) {
-        signUpViewModel.didSignUp.subscribe(onNext: { [weak self] in
-            self?.startLoggedUserFlow()
+        signUpViewModel.didSignUp.subscribe(onNext: { [weak self] user in
+            self?.startLoggedUserFlow(with: user)
         })
         .disposed(by: disposeBag)
         
@@ -49,9 +49,9 @@ final class SignUpCoordinator: BaseCoordinator {
         start(coordinator: signInCoordinator)
     }
     
-    private func startLoggedUserFlow() {
+    private func startLoggedUserFlow(with user: User) {
         parentCoordinator?.didFinish(coordinator: self)
-        let userFlowCoordinator = UserFlowCoordinator()
+        let userFlowCoordinator = UserFlowCoordinator(loggedUser: user)
         userFlowCoordinator.navigationController = navigationController
         start(coordinator: userFlowCoordinator)
     }
